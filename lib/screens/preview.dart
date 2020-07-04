@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 
 class PreviewScreen extends StatefulWidget {
   final String imgPath;
-  PreviewScreen({this.imgPath});
+  final String fileName;
+  PreviewScreen({this.imgPath, this.fileName});
 
   @override
   _PreviewScreenState createState() => _PreviewScreenState();
@@ -39,7 +40,10 @@ class _PreviewScreenState extends State<PreviewScreen> {
                     icon: Icon(Icons.share,color: Colors.white,),
                     onPressed: (){
                       getBytes().then((bytes) {
-                        Share.file('Share via', widget.imgPath, [bytes.buffer.asUint8List,bytes.buffer.asUint8List], 'image/path');
+                        print('here now');
+                        print(widget.imgPath);
+                        print(bytes.buffer.asUint8List());
+                        Share.file('Share via', widget.fileName, bytes.buffer.asUint8List(), 'image/path');
                       });
                     },
                   ),
@@ -54,6 +58,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
 
   Future getBytes () async {
     Uint8List bytes = File(widget.imgPath).readAsBytesSync() as Uint8List;
+//    print(ByteData.view(buffer))
     return ByteData.view(bytes.buffer);
   }
 }

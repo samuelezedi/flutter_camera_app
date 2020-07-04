@@ -119,11 +119,15 @@ class _CameraScreenState extends State<CameraScreen> {
   _onCapturePressed(context) async {
     try {
       final p = await getTemporaryDirectory();
-      final path = "${p.path}/${DateTime.now()}.png";
+      final name = DateTime.now();
+      final path = "${p.path}/$name.png";
 
-      await cameraController.takePicture(path);
+      await cameraController.takePicture(path).then((value) {
+        print('here');
+        print(path);
+        Navigator.push(context, MaterialPageRoute(builder: (context) =>PreviewScreen(imgPath: path,fileName: "$name.png",)));
+      });
 
-      Navigator.push(context, MaterialPageRoute(builder: (context) =>PreviewScreen(imgPath: path,)));
     } catch (e) {
       _showCameraException(e);
     }
