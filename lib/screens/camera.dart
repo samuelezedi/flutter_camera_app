@@ -1,3 +1,4 @@
+import 'package:cameraapp/screens/preview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
@@ -121,6 +122,8 @@ class _CameraScreenState extends State<CameraScreen> {
       final path = "${p.path}/${DateTime.now()}.png";
 
       await cameraController.takePicture(path);
+
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>PreviewScreen(imgPath: path,)));
     } catch (e) {
       _showCameraException(e);
     }
