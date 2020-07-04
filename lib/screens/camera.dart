@@ -13,6 +13,10 @@ class _CameraScreenState extends State<CameraScreen> {\
   int selectedCameraIndex;
   String imgPath;
 
+  Future initCameraController(CameraDescription cameraDescription) async {
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container();
