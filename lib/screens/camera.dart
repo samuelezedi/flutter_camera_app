@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 
@@ -131,7 +132,16 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   _getCameraLensIcons(lensDirection) {
-
+    switch(lensDirection) {
+      case CameraLensDirection.back:
+        return CupertinoIcons.switch_camera;
+      case CameraLensDirection.front:
+        return CupertinoIcons.switch_camera_solid;
+      case CameraLensDirection.external:
+        return CupertinoIcons.photo_camera;
+      default:
+        return Icons.device_unknown;
+    }
   }
 
   _showCameraException(e) {
