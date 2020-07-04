@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 
 class PreviewScreen extends StatefulWidget {
   final String imgPath;
@@ -37,7 +38,9 @@ class _PreviewScreenState extends State<PreviewScreen> {
                   child: IconButton(
                     icon: Icon(Icons.share,color: Colors.white,),
                     onPressed: (){
-
+                      getBytes().then((value) {
+                        Share
+                      });
                     },
                   ),
                 ),
