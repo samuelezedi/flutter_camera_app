@@ -46,11 +46,27 @@ class _CameraScreenState extends State<CameraScreen> {
 
   }
 
+  /// Display camera preview
+
+  Widget _cameraPreviewWidget() {
+    if(cameraController == null || !cameraController.value.isInitialized){
+      return Text(
+        'Loading',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container();
   }
-  _showCameraException(e) {
 
+  _showCameraException(e) {
+    String errorText = 'Error ${e.code} \nError message: ${e.description}';
   }
 }
