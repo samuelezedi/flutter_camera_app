@@ -59,6 +59,23 @@ class _CameraScreenState extends State<CameraScreen> {
         ),
       );
     }
+
+    return AspectRatio(
+      aspectRatio: cameraController.value.aspectRatio,
+      child: CameraPreview(cameraController),
+    );
+  }
+
+  Widget _cameraControlWidget(context) {
+    return Expanded(
+      child: Align(
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.max,
+        ),
+      ),
+    );
   }
 
   @override
