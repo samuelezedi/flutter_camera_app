@@ -105,10 +105,20 @@ class _CameraScreenState extends State<CameraScreen> {
             onPressed: (){
 
             },
-            icon: null,
-            label: null),
+            icon: Icon(
+                _getCameraLensIcons(lensDirection),
+              color: Colors.white,
+              size: 24,
+            ),
+            label: Text(
+              '${lensDirection.toString().substring(lensDirection.toString().indexOf('.')+1),toUpperCase()}',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w500
+              ),
+            )),
       ),
-    )
+    );
   }
 
   _onCapturePressed(context) {
