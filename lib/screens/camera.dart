@@ -14,6 +14,8 @@ class _CameraScreenState extends State<CameraScreen> {
   int selectedCameraIndex;
   String imgPath;
 
+
+
   Future initCameraController(CameraDescription cameraDescription) async {
     if (cameraDescription != null) {
       await cameraController.dispose();
@@ -122,6 +124,27 @@ class _CameraScreenState extends State<CameraScreen> {
     } catch (e) {
       _showCameraException(e);
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    availableCameras().then((value) {
+      cameras = value;
+      if(cameras.length > 0){
+        setState(() {
+          selectedCameraIndex = 0;
+        });
+        initCameraController(cameras[selectedCameraIndex]).then((value) {
+
+        });
+      } else {
+        print('No camera available');
+      }
+    }).catchError((e){
+      print('Error : ${e.code}');
+    });
   }
 
   @override
