@@ -111,7 +111,7 @@ class _CameraScreenState extends State<CameraScreen> {
               size: 24,
             ),
             label: Text(
-              '${lensDirection.toString().substring(lensDirection.toString().indexOf('.')+1),toUpperCase()}',
+              '${lensDirection.toString().substring(lensDirection.toString().indexOf('.')+1).toUpperCase()}',
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w500
@@ -128,6 +128,10 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Container();
+  }
+
+  _getCameraLensIcons(lensDirection) {
+
   }
 
   _showCameraException(e) {
