@@ -6,7 +6,7 @@ class CameraScreen extends StatefulWidget {
   _CameraScreenState createState() => _CameraScreenState();
 }
 
-class _CameraScreenState extends State<CameraScreen> {\
+class _CameraScreenState extends State<CameraScreen> {
 
   CameraController cameraController;
   List cameras;
@@ -14,11 +14,43 @@ class _CameraScreenState extends State<CameraScreen> {\
   String imgPath;
 
   Future initCameraController(CameraDescription cameraDescription) async {
+    if(cameraDescription != null) {
+      await cameraController.dispose();
+    }
+
+    cameraController = CameraController(cameraDescription, ResolutionPreset.high);
+
+    cameraController.addListener(() {
+      if(mounted){
+        setState(() {
+
+        });
+      }
+    });
+
+    if(cameraController.value.hasError){
+      print('Camera Error ${cameraController.value.errorDescription}');
+    }
+
+    try {
+      await cameraController.initialize();
+    } catch(e) {
+      _showCameraException(e);
+    }
+
+    if(mounted){
+      setState(() {
+
+      });
+    }
 
   }
 
   @override
   Widget build(BuildContext context) {
     return Container();
+  }
+  _showCameraException(e) {
+
   }
 }
