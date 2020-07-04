@@ -39,7 +39,7 @@ class _PreviewScreenState extends State<PreviewScreen> {
                     icon: Icon(Icons.share,color: Colors.white,),
                     onPressed: (){
                       getBytes().then((bytes) {
-                        Share.file('Share via', widget.imgPath, bytes.buffer.asUint8List, 'image/path');
+                        Share.file('Share via', widget.imgPath, [bytes.buffer.asUint8List,bytes.buffer.asUint8List], 'image/path');
                       });
                     },
                   ),

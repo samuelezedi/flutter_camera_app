@@ -18,7 +18,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
 
   Future initCameraController(CameraDescription cameraDescription) async {
-    if (cameraController != null) {
+    if (cameraDescription != null) {
       await cameraController.dispose();
     }
 
@@ -110,7 +110,7 @@ class _CameraScreenState extends State<CameraScreen> {
             label: Text(
               '${lensDirection.toString().substring(lensDirection.toString().indexOf('.') + 1).toUpperCase()}',
               style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+              TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
             )),
       ),
     );
@@ -199,7 +199,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
   _onSwitchCamera() {
     selectedCameraIndex =
-        selectedCameraIndex < cameras.length - 1 ? selectedCameraIndex + 1 : 0;
+    selectedCameraIndex < cameras.length - 1 ? selectedCameraIndex + 1 : 0;
     CameraDescription selectedCamera = cameras[selectedCameraIndex];
     initCameraController(selectedCamera);
   }
