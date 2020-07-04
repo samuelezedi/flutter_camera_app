@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:path_provider/path_provider.dart';
 
 class CameraScreen extends StatefulWidget {
   @override
@@ -122,13 +123,36 @@ class _CameraScreenState extends State<CameraScreen> {
     );
   }
 
-  _onCapturePressed(context) {
+  _onCapturePressed(context) async {
+    try {
+      final p = await getTemporaryDirectory();
+      final path = "${p.path}/${DateTime.now()}.png";
 
+      await cameraController.takePicture(path);
+    } catch(e) {
+      _showCameraException(e);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: _cameraControlWidget(context),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   _getCameraLensIcons(lensDirection) {
