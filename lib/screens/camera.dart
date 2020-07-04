@@ -73,9 +73,25 @@ class _CameraScreenState extends State<CameraScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            FloatingActionButton(
+              child: Icon(
+                Icons.camera,
+                color: Colors.black,
+              ),
+              backgroundColor: Colors.white,
+              onPressed: () {
+                _onCapturePressed(context);
+              },
+            )
+          ],
         ),
       ),
     );
+  }
+
+  _onCapturePressed(context) {
+
   }
 
   @override
