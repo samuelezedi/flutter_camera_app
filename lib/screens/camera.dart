@@ -104,7 +104,7 @@ class _CameraScreenState extends State<CameraScreen> {
         alignment: Alignment.centerLeft,
         child: FlatButton.icon(
             onPressed: (){
-
+              _onSwitchCamera();
             },
             icon: Icon(
                 _getCameraLensIcons(lensDirection),
@@ -142,6 +142,12 @@ class _CameraScreenState extends State<CameraScreen> {
       default:
         return Icons.device_unknown;
     }
+  }
+
+  _onSwitchCamera() {
+    selectedCameraIndex = selectedCameraIndex < cameras.length - 1 ? selectedCameraIndex + 1 : 0;
+    CameraDescription selectedCamera = cameras[selectedCameraIndex];
+    initCameraController(selectedCamera);
   }
 
   _showCameraException(e) {
