@@ -17,7 +17,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
 
 
-  Future initCameraController(CameraDescription cameraDescription) async {
+  Future initCamera(CameraDescription cameraDescription) async {
     if (cameraController != null) {
       await cameraController.dispose();
     }
@@ -38,7 +38,7 @@ class _CameraScreenState extends State<CameraScreen> {
     try {
       await cameraController.initialize();
     } catch (e) {
-      _showCameraException(e);
+      showCameraException(e);
     }
 
     if (mounted) {
@@ -48,7 +48,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
   /// Display camera preview
 
-  Widget _cameraPreviewWidget() {
+  Widget cameraPreview() {
     if (cameraController == null || !cameraController.value.isInitialized) {
       return Text(
         'Loading',
@@ -63,7 +63,7 @@ class _CameraScreenState extends State<CameraScreen> {
     );
   }
 
-  Widget _cameraControlWidget(context) {
+  Widget cameraControl(context) {
     return Expanded(
       child: Align(
         alignment: Alignment.center,
@@ -78,7 +78,7 @@ class _CameraScreenState extends State<CameraScreen> {
               ),
               backgroundColor: Colors.white,
               onPressed: () {
-                _onCapturePressed(context);
+                onCapture(context);
               },
             )
           ],
@@ -87,7 +87,7 @@ class _CameraScreenState extends State<CameraScreen> {
     );
   }
 
-  Widget _cameraToggleRowWidget() {
+  Widget cameraToggle() {
     if (cameras == null || cameras.isEmpty) {
       return Spacer();
     }
@@ -100,10 +100,10 @@ class _CameraScreenState extends State<CameraScreen> {
         alignment: Alignment.centerLeft,
         child: FlatButton.icon(
             onPressed: () {
-              _onSwitchCamera();
+              onSwitchCamera();
             },
             icon: Icon(
-              _getCameraLensIcons(lensDirection),
+              getCameraLensIcons(lensDirection),
               color: Colors.white,
               size: 24,
             ),
@@ -116,7 +116,7 @@ class _CameraScreenState extends State<CameraScreen> {
     );
   }
 
-  _onCapturePressed(context) async {
+  onCapture(context) async {
     try {
       final p = await getTemporaryDirectory();
       final name = DateTime.now();
@@ -129,7 +129,7 @@ class _CameraScreenState extends State<CameraScreen> {
       });
 
     } catch (e) {
-      _showCameraException(e);
+      showCameraException(e);
     }
   }
 
@@ -143,7 +143,7 @@ class _CameraScreenState extends State<CameraScreen> {
         setState(() {
           selectedCameraIndex = 0;
         });
-        initCameraController(cameras[selectedCameraIndex]).then((value) {
+        initCamera(cameras[selectedCameraIndex]).then((value) {
 
         });
       } else {
@@ -157,13 +157,17 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        child: Stack(
           children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: _cameraPreviewWidget(),
+//            Expanded(
+//              flex: 1,
+//              child: _cameraPreviewWidget(),
+//            ),
+            Align(
+              alignment: Alignment.center,
+              child: cameraPreview(),
             ),
             Align(
               alignment: Alignment.bottomCenter,
@@ -171,12 +175,12 @@ class _CameraScreenState extends State<CameraScreen> {
                 height: 120,
                 width: double.infinity,
                 padding: EdgeInsets.all(15),
-                color: Colors.black,
+                color: Colors.transparent,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    _cameraToggleRowWidget(),
-                    _cameraControlWidget(context),
+                    cameraToggle(),
+                    cameraControl(context),
                     Spacer(),
                   ],
                 ),
@@ -188,7 +192,7 @@ class _CameraScreenState extends State<CameraScreen> {
     );
   }
 
-  _getCameraLensIcons(lensDirection) {
+  getCameraLensIcons(lensDirection) {
     switch (lensDirection) {
       case CameraLensDirection.back:
         return CupertinoIcons.switch_camera;
@@ -201,14 +205,14 @@ class _CameraScreenState extends State<CameraScreen> {
     }
   }
 
-  _onSwitchCamera() {
+  onSwitchCamera() {
     selectedCameraIndex =
         selectedCameraIndex < cameras.length - 1 ? selectedCameraIndex + 1 : 0;
     CameraDescription selectedCamera = cameras[selectedCameraIndex];
-    initCameraController(selectedCamera);
+    initCamera(selectedCamera);
   }
 
-  _showCameraException(e) {
+  showCameraException(e) {
     String errorText = 'Error ${e.code} \nError message: ${e.description}';
   }
 }
