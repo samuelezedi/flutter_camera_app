@@ -90,6 +90,27 @@ class _CameraScreenState extends State<CameraScreen> {
     );
   }
 
+  Widget _cameraToggleRowWidget() {
+    if(cameras == null || cameras.isEmpty) {
+      return Spacer();
+    }
+
+    CameraDescription selectedCamera = cameras[selectedCameraIndex];
+    CameraLensDirection lensDirection = selectedCamera.lensDirection;
+    
+    return Expanded(
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: FlatButton.icon(
+            onPressed: (){
+
+            },
+            icon: null,
+            label: null),
+      ),
+    )
+  }
+
   _onCapturePressed(context) {
 
   }
