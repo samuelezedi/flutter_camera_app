@@ -15,11 +15,10 @@ class MyApp extends StatelessWidget {
 
     ));
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Camera',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-
         primarySwatch: Colors.blue,
-
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: CameraScreen(),
